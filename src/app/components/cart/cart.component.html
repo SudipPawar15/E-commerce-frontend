@@ -1,0 +1,72 @@
+<div class="container my-4">
+    <h2>Your Cart</h2>
+  
+    
+    <a class="btn btn-secondary mb-3" routerLink="/home">Back to Home</a>
+  
+    
+    <div *ngIf="cart.length === 0">
+      <p>Your cart is empty.</p>
+    </div>
+  
+    <div *ngIf="cart.length > 0">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Amount</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+          <tr *ngFor="let product of cart">
+            <td>{{ product.name }}</td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="product.quantity"
+                min="1"
+                (change)="updateTotalAmount(product)"
+              />
+            </td>
+            <td>${{ product.quantity * product.price }}</td>
+            <td>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="removeFromCart(product.id)"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" class="text-right"><strong>Total:</strong></td>
+            <td colspan="2">
+              <strong>${{ totalAmount }}</strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+  
+      
+      <div *ngIf="successMessage" class="alert alert-info">
+        {{ successMessage }}
+      </div>
+  
+      
+      <button
+        class="btn btn-success"
+        (click)="placeOrder()"
+        [disabled]="loading"
+      >
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ loading ? 'Placing Order...' : 'Place Order' }}
+      </button>
+    </div>
+  </div>
+  
