@@ -19,7 +19,8 @@ Before running the Angular application, make sure you have the following install
 - Start the development server:
 
 ```bash
-   ng serve```
+   ng serve
+```
 
 -The application will be available at http://localhost:4200.
 
